@@ -6,33 +6,31 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.buysell.models.Product;
+import com.example.buysell.repositories.ProductRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
-public class ProductService {
-    private List<Product> products = new ArrayList<>();
-    private long ID = 0 ;
-    {
-        products.add(new Product(++ID, "PlayStation 5", "best ployka", 
-                        67000, "Krasnoyarsk", "Tomas"));
-        products.add(new Product(++ID, "Iphone 11", "some better peiger", 
-                        112000, "Moscow", "Jerry"));
+@RequiredArgsConstructor
+@Slf4j
+public class ProductService { 
+    private final ProductRepository productRepository;
+    public List<Product> listProduct(String title){
+        List<Product> products = productRepository.findAll();
+        if(title != null)
+        productRepository.findByTitle(title);
+        return productRepository.findAll();
     }
-    public List<Product> listProduct(){
-        return products;
-    }
-    public void saveProduct(Product product){
-        product.setId(++ID);
-        products.add(product);
+    public void saveProduct(Product product){ 
+        log.info("Saving new {}", product);
+        productRepository.save(product);
     }
     public void deleteProduct(long id){
-        products.removeIf(product -> product.getId().equals(id));
+        productRepository.deleteById(id);
     }
     public Product getProductById(Long id) {
-        for(Product product : products) {
-            if(product.getId().equals(id))
-            return product;
-        }
-        return null;
+       return productRepository.findById(id).orElse(null);
         
         
     }

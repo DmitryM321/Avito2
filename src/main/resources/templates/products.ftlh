@@ -13,13 +13,13 @@
     </#list>
     <hr>
 <h3> Создать новый товар</h3>  
-<from action="/product/create" method="post">
+<form action="/product/create" method="post">
     Название объявления: <input type="text" name="title"/><br><br>
     Описание объявления: <input type="text" name="discription"/><br><br>
     Цена: <input type="number" name="price"/><br><br>
     Город: <input type="text" name="city"/><br><br>
     Автор имя: <input type="text" name="author"/><br><br>
     <input type="submit" value="Добавить товар"/>
-</from>
+</form>
 </body>
 </html>
